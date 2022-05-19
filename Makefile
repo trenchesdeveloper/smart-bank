@@ -3,7 +3,7 @@ postgres:
 
 createdb:
 	docker exec -it postgres12  createdb -U postgres smartBank
-	
+
 dropdb:
 	docker exec -it postgres12 dropdb smartBank
 migrateup:
@@ -12,9 +12,10 @@ migrateup:
 migratedown:
 	migrate -path db/migration -database "postgresql://postgres:secret@localhost:5432/smartBank?sslmode=disable" -verbose down
 
-
-
 sqlc:
 	sqlc generate
+
+test:
+	go test -v -cover ./...
 
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc
